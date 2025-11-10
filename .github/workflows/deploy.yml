@@ -13,7 +13,7 @@ on:
 
 # 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -39,7 +39,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           cache: npm # 或 pnpm / yarn
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -47,46 +47,6 @@ jobs:
         run: npm ci # 或 pnpm install / yarn install / bun install
       - name: Build with VitePress
         run: npm run docs:build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
-      - name: Rewrite asset urls to jsDelivr
-        run: |
-          set -euo pipefail
-          CDN_PREFIX="https://cdn.jsdelivr.net/gh/xiafu16/mspc-zh@gh-cdn/assets/"
-          CDN_ROOT="https://cdn.jsdelivr.net/gh/xiafu16/mspc-zh@gh-cdn/"
-          # 遍历所有 HTML 文件并逐个执行替换，避免多行续接导致的 shell 解析问题
-          find docs/.vitepress/dist -type f -name '*.html' -print0 | while IFS= read -r -d '' file; do
-            sed -i \
-              -e "s|=\"/mspc-zh/assets/|=\"${CDN_PREFIX}|g" \
-              -e "s|'\/mspc-zh\/assets\/|'"${CDN_PREFIX}"'|g" \
-              -e "s|=\"/assets/|=\"${CDN_PREFIX}|g" \
-              -e "s|'\/assets\/|'"${CDN_PREFIX}"'|g" \
-              -e "s|=\"/mspc-zh/icon-sml.ico|=\"${CDN_ROOT}icon-sml.ico|g" \
-              -e "s|'\/mspc-zh\/icon-sml.ico|'"${CDN_ROOT}"icon-sml.ico|g" \
-              -e "s|=\"/icon-sml.ico|=\"${CDN_ROOT}icon-sml.ico|g" \
-              -e "s|'\/icon-sml.ico|'"${CDN_ROOT}"icon-sml.ico|g" \
-              -e "s|=\"/mspc-zh/logo.png|=\"${CDN_ROOT}logo.png|g" \
-              -e "s|'\/mspc-zh\/logo.png|'"${CDN_ROOT}"logo.png|g" \
-              -e "s|=\"/logo.png|=\"${CDN_ROOT}logo.png|g" \
-              -e "s|'\/logo.png|'"${CDN_ROOT}"logo.png|g" \
-              -e "s|=\"/mspc-zh/logo-index.png|=\"${CDN_ROOT}logo-index.png|g" \
-              -e "s|'\/mspc-zh\/logo-index.png|'"${CDN_ROOT}"logo-index.png|g" \
-              -e "s|=\"/logo-index.png|=\"${CDN_ROOT}logo-index.png|g" \
-              -e "s|'\/logo-index.png|'"${CDN_ROOT}"logo-index.png|g" \
-              -e "s|=\"/mspc-zh/audio/|=\"${CDN_ROOT}audio/|g" \
-              -e "s|'\/mspc-zh\/audio\/|'"${CDN_ROOT}"audio/|g" \
-              -e "s|=\"/audio/|=\"${CDN_ROOT}audio/|g" \
-              -e "s|'\/audio\/|'"${CDN_ROOT}"audio/|g" \
-              -e "s|=\"/mspc-zh/image/|=\"${CDN_ROOT}image/|g" \
-              -e "s|'\/mspc-zh\/image\/|'"${CDN_ROOT}"image/|g" \
-              -e "s|=\"/image/|=\"${CDN_ROOT}image/|g" \
-              -e "s|'\/image\/|'"${CDN_ROOT}"image/|g" \
-              "$file"
-          done
-      - name: Publish build to gh-cdn (for jsDelivr)
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/.vitepress/dist
-          publish_branch: gh-cdn
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
