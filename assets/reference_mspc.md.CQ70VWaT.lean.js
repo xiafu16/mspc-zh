@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as r}from"./chunks/framework.CsDIjJev.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"reference/mspc.md","filePath":"zh/reference/mspc.md","lastUpdated":1762739699000}'),a={name:"reference/mspc.md"};function c(s,n,o,p,m,d){return r(),t("div")}const i=e(a,[["render",c]]);export{_ as __pageData,i as default};

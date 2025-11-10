@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as r}from"./chunks/framework.CsDIjJev.js";const f=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"reference/sml.md","filePath":"zh/reference/sml.md","lastUpdated":1762739699000}'),a={name:"reference/sml.md"};function s(c,n,o,m,d,l){return r(),t("div")}const _=e(a,[["render",s]]);export{f as __pageData,_ as default};
