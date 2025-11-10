@@ -47,6 +47,37 @@ jobs:
         run: npm ci # 或 pnpm install / yarn install / bun install
       - name: Build with VitePress
         run: npm run docs:build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
+      - name: Rewrite asset urls to jsDelivr
+        run: |
+          CDN_PREFIX="https://cdn.jsdelivr.net/gh/xiafu16/mspc-zh@gh-cdn/assets/"
+          CDN_ROOT="https://cdn.jsdelivr.net/gh/xiafu16/mspc-zh@gh-cdn/"
+          # 替换 HTML 内对 assets 的引用为 jsDelivr（同时兼容带仓库 base 和不带 base 的情况）
+          find docs/.vitepress/dist -type f -name '*.html' -print0 | xargs -0 sed -i \
+            -e "s|=\"/mspc-zh/assets/|=\"${CDN_PREFIX}|g" \
+            -e "s|'\/mspc-zh\/assets\/|'"${CDN_PREFIX}"'|g" \
+            -e "s|=\"/assets/|=\"${CDN_PREFIX}|g" \
+            -e "s|'\/assets\/|'"${CDN_PREFIX}"'|g" \
+            # favicon 与公共文件（仅针对已知公共路径，避免影响文档路由）
+            -e "s|=\"/mspc-zh/icon-sml.ico|=\"${CDN_ROOT}icon-sml.ico|g" \
+            -e "s|'\/mspc-zh\/icon-sml.ico|'"${CDN_ROOT}"icon-sml.ico|g" \
+            -e "s|=\"/icon-sml.ico|=\"${CDN_ROOT}icon-sml.ico|g" \
+            -e "s|'\/icon-sml.ico|'"${CDN_ROOT}"icon-sml.ico|g" \
+            -e "s|=\"/mspc-zh/logo.png|=\"${CDN_ROOT}logo.png|g" \
+            -e "s|'\/mspc-zh\/logo.png|'"${CDN_ROOT}"logo.png|g" \
+            -e "s|=\"/logo.png|=\"${CDN_ROOT}logo.png|g" \
+            -e "s|'\/logo.png|'"${CDN_ROOT}"logo.png|g" \
+            -e "s|=\"/mspc-zh/logo-index.png|=\"${CDN_ROOT}logo-index.png|g" \
+            -e "s|'\/mspc-zh\/logo-index.png|'"${CDN_ROOT}"logo-index.png|g" \
+            -e "s|=\"/logo-index.png|=\"${CDN_ROOT}logo-index.png|g" \
+            -e "s|'\/logo-index.png|'"${CDN_ROOT}"logo-index.png|g" \
+            -e "s|=\"/mspc-zh/audio/|=\"${CDN_ROOT}audio/|g" \
+            -e "s|'\/mspc-zh\/audio\/|'"${CDN_ROOT}"audio/|g" \
+            -e "s|=\"/audio/|=\"${CDN_ROOT}audio/|g" \
+            -e "s|'\/audio\/|'"${CDN_ROOT}"audio/|g" \
+            -e "s|=\"/mspc-zh/image/|=\"${CDN_ROOT}image/|g" \
+            -e "s|'\/mspc-zh\/image\/|'"${CDN_ROOT}"image/|g" \
+            -e "s|=\"/image/|=\"${CDN_ROOT}image/|g" \
+            -e "s|'\/image\/|'"${CDN_ROOT}"image/|g"
       - name: Publish build to gh-cdn (for jsDelivr)
         uses: peaceiris/actions-gh-pages@v3
         with:
