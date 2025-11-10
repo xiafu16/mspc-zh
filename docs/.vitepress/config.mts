@@ -1,29 +1,22 @@
 import { defineConfig } from 'vitepress'
+import { sharedConfig } from './config/share'
+import { zhConfig } from './config/zh'
+import { enConfig } from './config/en'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/mspc-zh/',
-  title: "ZHUHAI MARINE SCIENCE POPULARIZATION CENTER",
-  description: "DISCOVER THE OCEAN",
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
-    ],
-
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
-  }
+  ...sharedConfig,
+  locales: { // 多语言
+    root: {
+      label: '简体中文',
+      lang: 'zh-CN',
+      ...zhConfig
+    },
+    en: {
+      label: 'English',
+      lang: 'en',
+      link: '/en/',
+      ...enConfig
+    }
+  },
 })
