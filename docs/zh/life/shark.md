@@ -16,7 +16,7 @@ next:
 ## 语音导览
 
 <AudioPlayer 
-  src="/mspc-zh/audio/wave.mp3" 
+  src="/audio/wave.mp3" 
   title="鲨鱼知识讲解"
   :loop="false"
   :volume="0.7"

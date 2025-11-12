@@ -35,7 +35,12 @@ export const sharedConfig = defineConfig({
     ['meta', { name: "keywords", content: "海洋,科普" }],
   ],
   appearance: true, // 主题模式，默认浅色且开启切换
-  base: baseUrl,
+  base:
+    process.env.CF_PAGES === 'true'
+      ? '/' // Cloudflare Pages 自定义域名或根路径部署
+      : process.env.GITHUB_REPOSITORY
+        ? baseUrl // GitHub Pages 仓库路径
+        : '/',
   lastUpdated: true, // 上次更新
   vite: {
     build: {
