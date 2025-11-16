@@ -1,7 +1,6 @@
 /* 自定义首页 Hero 名称渐变色 */
-:root {
-  /* --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #7ea2b3, #85c0cc); */
+/* :root {
+
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(
     120deg,
@@ -14,7 +13,7 @@
     #3d5af1 33%
   );
   --vp-home-hero-image-filter: blur(44px);
-}
+} */
 
 /* 兼容性处理，确保文本使用背景裁剪呈现渐变 */
 .VPHomeHero .name .text {

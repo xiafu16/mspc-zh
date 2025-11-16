@@ -2,7 +2,9 @@ import DefaultTheme from 'vitepress/theme'
 import GlobalAudio from './components/GlobalAudio.vue'
 import AudioPlayer from './components/AudioPlayer.vue'
 import './custom.css'
+import './style/index.css'
 import type { Theme } from 'vitepress'
+
 
 const theme: Theme = {
   ...DefaultTheme,
