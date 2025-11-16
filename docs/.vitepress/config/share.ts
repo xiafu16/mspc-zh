@@ -21,6 +21,12 @@ export const sharedConfig = defineConfig({
   title: "珠海海洋科普中心", // 站点名称
   titleTemplate: "珠海海洋科普中心", // 网页标题
   description: "海洋发现之旅", // 站点描述
+    base:
+    process.env.CF_PAGES === 'true'
+      ? '/' // Cloudflare Pages 自定义域名或根路径部署
+      : process.env.GITHUB_REPOSITORY
+        ? baseUrl // GitHub Pages 仓库路径
+        : '/',
   head: [ // favicon.ico 图标等
     ['link', { rel: "shortcut icon", href: `${baseUrl}icon-sml.ico` }],
     // 网站 favicon.ico 图标
@@ -35,12 +41,7 @@ export const sharedConfig = defineConfig({
     ['meta', { name: "keywords", content: "海洋,科普" }],
   ],
   appearance: true, // 主题模式，默认浅色且开启切换
-  base:
-    process.env.CF_PAGES === 'true'
-      ? '/' // Cloudflare Pages 自定义域名或根路径部署
-      : process.env.GITHUB_REPOSITORY
-        ? baseUrl // GitHub Pages 仓库路径
-        : '/',
+
   lastUpdated: true, // 上次更新
   vite: {
     build: {
