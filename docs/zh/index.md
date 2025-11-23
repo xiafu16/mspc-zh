@@ -18,10 +18,10 @@ hero:
   actions:
     - theme: brand
       text: 科普中心简介
-      link: /life/
+      link: /reference/mspc.md
     - theme: alt
       text: 实验室简介
-      link: /observe/
+      link: /reference/sml.md
 
 features:
   - icon: 🐳 
