@@ -27,15 +27,19 @@ features:
   - icon: 🐳 
     title: 海洋生物
     details: 海洋，生物的共同家园
+    link: /life/
   - icon: 🔭
     title: 海洋观测
     details: 科技，海洋观测走向智能时代
+    link: /observe/
   - icon: 📖
     title: 海洋发现
     details: 发现，海洋中的未知与奥秘
+    link: /discover/
   - icon: 🐬
     title: 珠海的海
     details: 珠海，向海而生
+    link: /zhuhai/
 ---
 
 <HomeUnderline />
